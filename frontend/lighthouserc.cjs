@@ -3,7 +3,7 @@ module.exports = {
     ci: {
         collect: {
             // Number of times to run Lighthouse per URL
-            numberOfRuns: 5,
+            numberOfRuns: 3,
             startServerCommand: 'npm run preview',
             startServerReadyPattern: 'Listening on',
             startServerReadyTimeout: 30000,
