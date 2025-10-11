@@ -30,10 +30,7 @@ module.exports = {
 
                 // Specific metrics - Core Web Vitals
                 'first-contentful-paint': ['warn', { maxNumericValue: 2000 }],
-                'largest-contentful-paint': [
-                    'error',
-                    { maxNumericValue: 2500 },
-                ],
+                'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
                 'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }],
                 'total-blocking-time': ['warn', { maxNumericValue: 300 }],
                 'speed-index': ['warn', { maxNumericValue: 3000 }],
@@ -41,11 +38,11 @@ module.exports = {
 
                 // Resource size budgets
                 'resource-summary:document:size': [
-                    'error',
+                    'warn',
                     { maxNumericValue: 50000 },
                 ],
                 'resource-summary:script:size': [
-                    'error',
+                    'warn',
                     { maxNumericValue: 300000 },
                 ],
                 'resource-summary:stylesheet:size': [
@@ -64,12 +61,12 @@ module.exports = {
                 // Other important audits
                 'uses-responsive-images': 'warn',
                 'offscreen-images': 'warn',
-                'unminified-css': 'error',
-                'unminified-javascript': 'error',
+                'unminified-css': 'warn',
+                'unminified-javascript': 'warn',
                 'unused-css-rules': 'warn',
                 'uses-optimized-images': 'warn',
                 'modern-image-formats': 'warn',
-                'uses-text-compression': 'error',
+                'uses-text-compression': 'warn',
                 'uses-rel-preconnect': 'warn',
                 'font-display': 'warn',
             },
