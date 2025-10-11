@@ -43,3 +43,9 @@ Locally preview production build:
 ```bash
 npm run preview
 ```
+
+## Future
+
+- [ ] @nuxt/image - image optimizations
+- [ ] @nuxt/fonts - fonts optimizations
+- [ ] @nuxt/scripts - scripts optimizations
