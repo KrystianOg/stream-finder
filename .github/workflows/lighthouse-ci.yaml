@@ -26,7 +26,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: npm install --include=dev
+        run: npm install ci
 
       - name: Build application
         run: npm run build
@@ -36,21 +36,13 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
           npm install -g @lhci/cli
-          lhci autorun
-
-      - name: Debug - List files
-        if: always()
-        run: |
-          echo "=== Current directory ==="
-          pwd
-          echo "=== Find .reports ==="
-          find . -name ".reports" -o -name "*.report.html"
+          lhci autorun # saves to .lighthouse/
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lighthouse-results-${{github.event.pull_request.number}}-${{github.sha}}
-          path: ./**/.reports/
+          name: lighthouse-results-${{github.event.pull_request.number || github.sha}}
+          path: frontend/.lighthouse/
           retention-days: 90
           include-hidden-files: true

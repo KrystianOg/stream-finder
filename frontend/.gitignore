@@ -25,4 +25,5 @@ logs
 
 # Lighthouse 
 .lighthouseci
-.reports
+.lighthouse
+

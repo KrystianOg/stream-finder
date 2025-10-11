@@ -72,14 +72,10 @@ module.exports = {
             },
         },
         upload: {
-            // Store reports temporarily - can be configured for permanent storage
+            // Store lighthouse reports temporarily (90D)
             // https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md#target
             target: 'filesystem',
-            outputDir: '.reports',
-            // For GitHub Actions, consider using LHCI server
-            // target: 'lhci',
-            // serverBaseUrl: 'https://your-lhci-server.com',
-            // token: process.env.LHCI_TOKEN,
+            outputDir: '.lighthouse',
         },
     },
 }
