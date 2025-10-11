@@ -74,7 +74,8 @@ module.exports = {
         upload: {
             // Store reports temporarily - can be configured for permanent storage
             // https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md#target
-            target: 'temporary-public-storage',
+            target: 'filesystem',
+            outputDir: '.reports',
             // For GitHub Actions, consider using LHCI server
             // target: 'lhci',
             // serverBaseUrl: 'https://your-lhci-server.com',

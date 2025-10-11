@@ -38,10 +38,19 @@ jobs:
           npm install -g @lhci/cli
           lhci autorun
 
+      - name: Debug - List files
+        if: always()
+        run: |
+          echo "=== Current directory ==="
+          pwd
+          echo "=== Find .reports ==="
+          find . -name ".reports" -o -name "*.report.html"
+
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lighthouse-results
-          path: .lighthouseci
-          retention-days: 30
+          name: lighthouse-results-${{github.event.pull_request.number || github.sha }}
+          path: ./**/.reports/
+          retention-days: 90
+          include-hidden-files: true
