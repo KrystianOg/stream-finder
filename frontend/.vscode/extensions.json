@@ -1,8 +1,6 @@
 {
     "recommendations": [
         "vue.volar",
-        "formulahendry.auto-close-tag",
-        "formulahendry.auto-rename-tag",
         "dbaeumer.vscode-eslint",
         "bradlc.vscode-tailwindcss",
         "esbenp.prettier-vscode"

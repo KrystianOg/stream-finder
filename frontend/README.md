@@ -44,6 +44,14 @@ Locally preview production build:
 npm run preview
 ```
 
+## Lighthouse
+
+Checking lighthouse locally:
+
+```bash
+npm run lighthouse
+```
+
 ## Future
 
 - [ ] @nuxt/image - image optimizations
