@@ -9,8 +9,8 @@ const items = computed(() => [
     },
     {
         label: 'Seriale',
-        to: '/tv-series',
-        active: route.path.startsWith('/tv-series'),
+        to: '/series',
+        active: route.path.startsWith('/series'),
     },
 ])
 </script>

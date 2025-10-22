@@ -11,8 +11,8 @@ module.exports = {
             url: [
                 'http://localhost:3000/movies',
                 'http://localhost:3000/movies/14625863',
-                'http://localhost:3000/tv-series',
-                'http://localhost:3000/tv-series/651',
+                'http://localhost:3000/series',
+                'http://localhost:3000/series/651',
                 // Add more routes here
             ],
             settings: {

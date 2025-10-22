@@ -79,7 +79,7 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
             </nav>
 
             <NuxtLink
-                :to="`/movies/${props.id}`"
+                :to="`/${props.showType === 'movie' ? 'movies' : 'series'}/${props.id}`"
                 class="w-full mt-2 rounded-md flex items-center justify-center gap-2 p-2 font-medium border border-slate-800"
             >
                 <UIcon name="i-lucide-info" size="20" />
