@@ -1,11 +1,13 @@
 name: Lighthouse CI
 
 on:
-  pull_request:
-    branches: [main, develop]
-    paths:
-      - "frontend/**"
-      - ".github/workflows/lighthouse-ci.yml"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to run Lighthouse on"
+        required: false
+        default: "main"
+        type: string
 
 jobs:
   lighthouse:
