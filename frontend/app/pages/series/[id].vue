@@ -4,7 +4,7 @@ const id = useRoute().params.id as string | undefined
 if (!id) {
     throw createError({
         statusCode: 404,
-        statusMessage: 'Movie not found.',
+        statusMessage: 'Series not found.',
     })
 }
 </script>

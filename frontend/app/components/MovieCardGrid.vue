@@ -50,7 +50,7 @@ watch(
     </UPageGrid>
     <UButton
         v-if="data?.nextCursor"
-        class="mt-6 bg-transparent border border-primary text-white w-1/2 inline-block"
+        class="mt-6 bg-transparent border border-primary text-white w-full md:w-1/2 inline-block"
         @click="params.cursor = data?.nextCursor"
     >
         Next page
