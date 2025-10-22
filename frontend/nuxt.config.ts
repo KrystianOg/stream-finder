@@ -21,4 +21,11 @@ export default defineNuxtConfig({
             '@tailwindcss/postcss': {},
         },
     },
+    routeRules: {
+        '/api/streaming-api': {
+            headers: {
+                'Cache-Control': 'max-age=36000 Public',
+            },
+        },
+    },
 })

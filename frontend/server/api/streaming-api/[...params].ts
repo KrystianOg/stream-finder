@@ -1,9 +1,13 @@
+import { hash } from 'ohash'
+
 export default defineEventHandler(async (event) => {
     const { rapidApiHost, rapidApiKey } = useRuntimeConfig()
     const path = event.path.replace(/^\/api\/streaming-api\//, '')
     const target = new URL(path, 'https://' + rapidApiHost).toString()
 
-    const cached = await useStorage('cache').getItem(target)
+    const cacheKey = `api:${hash(target)}`
+
+    const cached = await useStorage('cache').getItem(cacheKey)
 
     if (cached) {
         return cached
@@ -16,7 +20,7 @@ export default defineEventHandler(async (event) => {
         },
     })
 
-    await useStorage('cache').setItem(target, JSON.stringify(data), {
+    await useStorage('cache').setItem(cacheKey, JSON.stringify(data), {
         ttl: 3600,
     })
 
