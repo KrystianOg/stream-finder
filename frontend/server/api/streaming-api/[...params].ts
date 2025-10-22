@@ -7,6 +7,9 @@ export default defineEventHandler(async (event) => {
 
     const cacheKey = `api:${hash(target)}`
 
+    // NOTE: this is already optimized so we don't make so many costly requests
+    // for presentation purposes we can undo this or create fake delay of about 700ms
+    // cause this is how long it takes for API to respond
     const cached = await useStorage('cache').getItem(cacheKey)
 
     if (cached) {
