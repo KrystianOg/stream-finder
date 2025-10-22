@@ -10,9 +10,15 @@ if (!process.env.RAPID_API_KEY) {
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     modules: ['@nuxt/eslint', '@nuxt/ui', '@vueuse/nuxt', '@nuxt/icon'],
+    css: ['~/assets/main.css'],
     devtools: { enabled: true },
     runtimeConfig: {
         rapidApiHost: process.env.RAPID_API_HOST,
         rapidApiKey: process.env.RAPID_API_KEY,
+    },
+    postcss: {
+        plugins: {
+            '@tailwindcss/postcss': {},
+        },
     },
 })
