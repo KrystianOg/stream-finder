@@ -15,6 +15,9 @@ export default defineNuxtConfig({
     runtimeConfig: {
         rapidApiHost: process.env.RAPID_API_HOST,
         rapidApiKey: process.env.RAPID_API_KEY,
+        public: {
+            baseUrl: process.env.NUXT_PUBLIC_BASE_URL || '',
+        },
     },
     postcss: {
         plugins: {
@@ -26,6 +29,17 @@ export default defineNuxtConfig({
             headers: {
                 'Cache-Control': 'max-age=36000 Public',
             },
+        },
+        '/': {
+            redirect: '/movies',
+        },
+        // generated on demand once until next deployment, cached on CDN
+        // '/movies': { isr: true },
+    },
+    nitro: {
+        preset: 'cloudflare-pages',
+        prerender: {
+            autoSubfolderIndex: false,
         },
     },
 })
