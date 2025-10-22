@@ -1,32 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute()
+
+const items = computed(() => [
+    {
+        label: 'Filmy',
+        to: '/movies',
+        active: route.path.startsWith('/movies'),
+    },
+    {
+        label: 'Seriale',
+        to: '/tv-series',
+        active: route.path.startsWith('/tv-series'),
+    },
+])
+</script>
 <template>
     <UHeader title="StreamFinder">
-        <nav>
-            <ul>
-                <li>
-                    <a>Filmy</a>
-                </li>
-                <li>
-                    <a>Seriale</a>
-                </li>
-                <li>
-                    <a>Lista życzeń</a>
-                </li>
-            </ul>
-        </nav>
+        <UNavigationMenu :items="items" variant="link" />
 
         <template #right>
             <UColorModeButton />
 
-            <UTooltip text="TODO:" :kbds="['meta', 'G']">
-                <UButton
-                    color="neutral"
-                    variant="ghost"
-                    target="_blank"
-                    icon="i-simgple-icons-github"
-                    aria-label="Github"
-                />
-            </UTooltip>
+            <UButton
+                color="neutral"
+                variant="ghost"
+                to="https://github.com/KrystianOg/movie-multiplexer"
+                target="_blank"
+                icon="i-simple-icons-github"
+                aria-label="Github"
+            />
         </template>
     </UHeader>
 </template>
