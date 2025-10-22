@@ -2,6 +2,9 @@ import { hash } from 'ohash'
 
 export default defineEventHandler(async (event) => {
     const { rapidApiHost, rapidApiKey } = useRuntimeConfig()
+
+    // TODO: remove nullish searchparams as they unnecessarily duplicate requests made,
+    // when they could be resolved from cache
     const path = event.path.replace(/^\/api\/streaming-api\//, '')
     const target = new URL(path, 'https://' + rapidApiHost).toString()
 

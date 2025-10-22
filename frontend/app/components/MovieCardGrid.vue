@@ -17,19 +17,14 @@ const key = computed(
     () => `${props.showType}-${params.cursor || 'initial'}-${params.search}`
 )
 
-const { data } = await useAsyncData(
-    key,
-    () =>
-        sdk.showsApi.searchShowsByFilters({
-            country: DEFAULT_COUNTRY_CODE,
-            showType: props.showType,
-            orderBy: params.search ? 'popularity_alltime' : 'popularity_1month',
-            cursor: params.cursor || undefined,
-            keyword: params.search || undefined,
-        })
-    // {
-    //     watch: [() => props.showType, () => params.cursor, () => params.search],
-    // }
+const { data } = await useAsyncData(key, () =>
+    sdk.showsApi.searchShowsByFilters({
+        country: DEFAULT_COUNTRY_CODE,
+        showType: props.showType,
+        orderBy: params.search ? 'popularity_alltime' : 'popularity_1month',
+        cursor: params.cursor,
+        keyword: params.search,
+    })
 )
 
 const shows = computed(() => data.value?.shows)

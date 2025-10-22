@@ -12,10 +12,12 @@ const streamingOptions = computed(() => {
     return uniqBy(streamingOptions, (item) => item.service.id)
 })
 
-const overview = computed(() => props.overview || 'No overview available.')
+const overview = computed<string>(
+    () => props.overview || 'No overview available.'
+)
 
-const firstAirYear = computed(() =>
-    props.firstAirYear ? props.firstAirYear.toString() : undefined
+const firstAirYear = computed<string | undefined>(() =>
+    props.firstAirYear?.toString()
 )
 
 const imdbId = computed(() => IMDB_TITLE_URL + props.imdbId)
