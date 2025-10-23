@@ -7,9 +7,9 @@ interface SearchParams {
 }
 </script>
 <script setup lang="ts">
-type MovieCardGridProps = Pick<SearchShowsByFiltersRequest, 'showType'>
+type ShowCardGridProps = Pick<SearchShowsByFiltersRequest, 'showType'>
 
-const props = defineProps<MovieCardGridProps>()
+const props = defineProps<ShowCardGridProps>()
 const params = useUrlSearchParams<SearchParams>('history')
 const sdk = useStreamingSDK()
 
@@ -46,7 +46,7 @@ watch(
         class="my-4 w-full md:w-1/2"
     />
     <UPageGrid>
-        <MovieCard v-for="show in shows" :key="show.id" v-bind="show" />
+        <ShowCard v-for="show in shows" :key="show.id" v-bind="show" />
     </UPageGrid>
     <UButton
         v-if="data?.nextCursor"

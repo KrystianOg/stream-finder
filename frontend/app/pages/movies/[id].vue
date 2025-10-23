@@ -9,5 +9,5 @@ if (!id) {
 }
 </script>
 <template>
-    <MovieDetail :id />
+    <ShowDetail :id />
 </template>

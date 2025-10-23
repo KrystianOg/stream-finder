@@ -1,3 +1,3 @@
 <template>
-    <MovieCardGrid show-type="movie" />
+    <ShowCardGrid show-type="movie" />
 </template>
