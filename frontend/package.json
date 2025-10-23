@@ -1,5 +1,5 @@
 {
-    "name": "movie-multiplexer",
+    "name": "stream-finder",
     "type": "module",
     "private": true,
     "scripts": {
