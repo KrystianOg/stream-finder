@@ -25,11 +25,8 @@ const episodeInfo = computed(() => {
         <div class="relative h-[60vh] min-h-[400px] overflow-hidden">
             <!-- Background Image -->
             <div class="absolute inset-0">
-                <img
-                    :src="
-                        show.imageSet.horizontalPoster?.w1440 ||
-                        show.imageSet.verticalPoster?.w480
-                    "
+                <SAImage
+                    :image-set="show.imageSet"
                     :alt="show.title"
                     class="w-full h-full object-cover"
                 />
@@ -48,9 +45,10 @@ const episodeInfo = computed(() => {
             >
                 <div class="flex flex-col md:flex-row gap-6 items-end">
                     <!-- Poster -->
-                    <img
-                        :src="show.imageSet.verticalPoster?.w360"
+                    <SAImage
+                        :image-set="show.imageSet"
                         :alt="show.title"
+                        image-type="verticalPoster"
                         class="w-48 h-72 object-cover rounded-lg shadow-2xl hidden md:block"
                     />
 
