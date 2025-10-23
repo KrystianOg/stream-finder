@@ -1,36 +1,27 @@
-<script lang="ts">
-import type { SearchShowsByFiltersRequest } from 'streaming-availability'
-import { useStreamingSDK } from '~/composables/streaming-api'
-interface SearchParams {
-    cursor?: string | undefined
-    search?: string | undefined
-}
-</script>
 <script setup lang="ts">
+import type { SearchShowsByFiltersRequest } from 'streaming-availability'
+
 type ShowCardGridProps = Pick<SearchShowsByFiltersRequest, 'showType'>
 
-const props = defineProps<ShowCardGridProps>()
-const params = useUrlSearchParams<SearchParams>('history')
-const sdk = useStreamingSDK()
+const { showType } = defineProps<ShowCardGridProps>()
+const search = defineModel<string | undefined>('search')
+const cursor = defineModel<string | undefined>('cursor')
 
 const key = computed(
-    () => `${props.showType}-${params.cursor || 'initial'}-${params.search}`
+    () => `${showType}-${cursor.value || 'initial'}-${search.value}`
 )
 
-const { data } = await useAsyncData(key, () =>
-    sdk.showsApi.searchShowsByFilters({
-        country: DEFAULT_COUNTRY_CODE,
-        showType: props.showType,
-        orderBy: params.search ? 'popularity_alltime' : 'popularity_1month',
-        cursor: params.cursor,
-        keyword: params.search,
-    })
-)
+const { data } = await useStreamingAvailability().useAsyncSearchShows(key, {
+    showType: showType,
+    orderBy: search.value ? 'popularity_alltime' : 'popularity_1month',
+    cursor: cursor.value,
+    keyword: search.value,
+})
 
 const shows = computed(() => data.value?.shows)
 
 watch(
-    () => [props.showType, params.cursor],
+    () => [showType, cursor],
     () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -38,7 +29,7 @@ watch(
 </script>
 <template>
     <UInput
-        v-model="params.search"
+        v-model="search"
         icon="i-lucide-search"
         size="md"
         variant="outline"
@@ -51,7 +42,7 @@ watch(
     <UButton
         v-if="data?.nextCursor"
         class="mt-6 bg-transparent border border-primary text-white w-full md:w-1/2 inline-block"
-        @click="params.cursor = data?.nextCursor"
+        @click="cursor = data?.nextCursor"
     >
         Next page
     </UButton>

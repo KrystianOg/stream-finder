@@ -19,6 +19,7 @@ export default defineNuxtConfig({
             baseUrl: process.env.NUXT_PUBLIC_BASE_URL || '',
         },
     },
+    sourcemap: true,
     postcss: {
         plugins: {
             '@tailwindcss/postcss': {},
