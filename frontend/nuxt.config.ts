@@ -34,8 +34,11 @@ export default defineNuxtConfig({
         '/': {
             redirect: '/movies',
         },
-        // generated on demand once until next deployment, cached on CDN
-        // '/movies': { isr: true },
+        // generated on demand, revalidates in background, cached on CDN
+        '/movies': { isr: 3600 },
+        '/movies/**': { isr: 86400 },
+        '/series': { isr: 3600 },
+        '/series/**': { isr: 86400 },
     },
     nitro: {
         preset: 'cloudflare-pages',
