@@ -23,7 +23,6 @@ const streamingOptions = computed(() => {
     }
 
     uniqueStreamingOptions.forEach((option) => {
-        console.info(option.service.themeColorCode)
         if (Object.hasOwn(overrideColors, option.service.themeColorCode)) {
             option.service.themeColorCode =
                 overrideColors[option.service.themeColorCode]!

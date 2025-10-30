@@ -22,9 +22,7 @@ const shows = computed(() => data.value?.shows)
 
 watch(
     () => [showType, cursor],
-    () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    () => window.scrollTo({ top: 0, behavior: 'smooth' })
 )
 </script>
 <template>
