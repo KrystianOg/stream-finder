@@ -25,6 +25,17 @@ export default defineNuxtConfig({
             baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
         },
     },
+    app: {
+        head: {
+            link: [
+                {
+                    rel: 'icon',
+                    type: 'image/svg+xml',
+                    href: '/favicon.svg',
+                },
+            ],
+        },
+    },
     sourcemap: true,
     postcss: {
         plugins: {
@@ -66,6 +77,32 @@ export default defineNuxtConfig({
                         preview_id: process.env.CLOUDFLARE_KV_PREVIEW_ID,
                     },
                 ],
+            },
+        },
+        routeRules: {
+            '/**': {
+                headers: {
+                    'Content-Security-Policy': [
+                        "default-src 'self'",
+                        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+                        "style-src 'self' 'unsafe-inline'",
+                        "img-src 'self' data: blob: https:",
+                        "font-src 'self' data:",
+                        "connect-src 'self' https://streaming-availability.p.rapidapi.com",
+                        "frame-ancestors 'none'",
+                        "base-uri 'self'",
+                        "form-action 'self'",
+                        "require-trusted-types-for 'script'",
+                    ].join('; '),
+                    'Strict-Transport-Security':
+                        'max-age=63072000; includeSubDomains; preload',
+                    'Cross-Origin-Opener-Policy': 'same-origin',
+                    'X-Frame-Options': 'DENY',
+                    'X-Content-Type-Options': 'nosniff',
+                    'Referrer-Policy': 'strict-origin-when-cross-origin',
+                    'Permissions-Policy':
+                        'camera=(), microphone=(), geolocation=()',
+                },
             },
         },
     },
