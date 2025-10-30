@@ -10,7 +10,8 @@
         "postinstall": "nuxt prepare",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "lighthouse": "lhci autorun"
+        "lighthouse": "lhci autorun",
+        "wrangler:dev": "wrangler pages dev dist --live-reload --log-level debug --local --kv KV"
     },
     "dependencies": {
         "@nuxt/icon": "^2.0.0",
