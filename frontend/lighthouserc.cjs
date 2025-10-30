@@ -9,10 +9,11 @@ module.exports = {
             startServerReadyTimeout: 30000,
             // URLs to test - add more routes as needed
             url: [
-                'http://localhost:3000/',
-                // Add more routes here, e.g.:
-                // 'http://localhost:4173/about',
-                // 'http://localhost:4173/products',
+                'http://localhost:3000/movies',
+                'http://localhost:3000/movies/14625863',
+                'http://localhost:3000/series',
+                'http://localhost:3000/series/651',
+                // Add more routes here
             ],
             settings: {
                 preset: 'desktop', // Change to 'mobile' for mobile testing
