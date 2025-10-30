@@ -13,30 +13,16 @@ export default defineEventHandler(async (event) => {
     // when they could be resolved from cache
     const path = event.path.replace(/^\/api\/streaming-api\//, '')
     const target = new URL(path, 'https://' + rapidApiHost).toString()
+    const cacheKey = `api:${hash(target)}`
 
-    if (import.meta.dev) {
-        const cacheKey = `api:${hash(target)}`
-        // NOTE: this is already optimized so we don't make so many costly requests
-        // for presentation purposes we can undo this or create fake delay of about 700ms
-        // cause this is how long it takes for API to respond
-        const cached = await useStorage('cache').getItem(cacheKey)
+    const KV = event.context.cloudflare?.env?.KV
+
+    if (KV) {
+        const cached = await KV.get(cacheKey)
 
         if (cached) {
-            return cached
+            return JSON.parse(cached)
         }
-
-        const data = await $fetch(target, {
-            headers: {
-                'x-rapidapi-host': rapidApiHost,
-                'x-rapidapi-key': rapidApiKey,
-            },
-        })
-
-        await useStorage('cache').setItem(cacheKey, JSON.stringify(data), {
-            ttl: 3600,
-        })
-
-        return data
     }
 
     const data = await $fetch(target, {
@@ -45,6 +31,10 @@ export default defineEventHandler(async (event) => {
             'x-rapidapi-key': rapidApiKey,
         },
     })
+
+    if (KV) {
+        await KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 86400 })
+    }
 
     return data
 })

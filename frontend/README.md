@@ -57,3 +57,7 @@ npm run lighthouse
 - [ ] @nuxt/image - image optimizations
 - [ ] @nuxt/fonts - fonts optimizations
 - [ ] @nuxt/scripts - scripts optimizations
+
+```bash
+npx wrangler pages dev dist --kv KV
+```

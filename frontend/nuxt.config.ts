@@ -9,14 +9,20 @@ if (!process.env.RAPID_API_KEY) {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
-    modules: ['@nuxt/eslint', '@nuxt/ui', '@vueuse/nuxt', '@nuxt/icon'],
+    modules: [
+        '@nuxt/eslint',
+        '@nuxt/ui',
+        '@vueuse/nuxt',
+        '@nuxt/icon',
+        '@nuxt/image',
+    ],
     css: ['~/assets/main.css'],
     devtools: { enabled: true },
     runtimeConfig: {
         rapidApiHost: process.env.RAPID_API_HOST,
         rapidApiKey: process.env.RAPID_API_KEY,
         public: {
-            baseUrl: process.env.NUXT_PUBLIC_BASE_URL || '',
+            baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
         },
     },
     sourcemap: true,
@@ -44,6 +50,28 @@ export default defineNuxtConfig({
         preset: 'cloudflare-pages',
         prerender: {
             autoSubfolderIndex: false,
+        },
+        cloudflare: {
+            wrangler: {
+                name: 'streaming-availability-proxy',
+                compatibility_date: '2025-02-04',
+                main: './server/kv.ts',
+                observability: {
+                    enabled: true,
+                },
+                kv_namespaces: [
+                    {
+                        id: process.env.CLOUDFLARE_KV_ID,
+                        binding: 'KV',
+                        preview_id: process.env.CLOUDFLARE_KV_PREVIEW_ID,
+                    },
+                ],
+            },
+        },
+    },
+    image: {
+        cloudflare: {
+            baseUrl: process.env.CLOUDFLARE_IMAGE_BASE_URL,
         },
     },
 })
