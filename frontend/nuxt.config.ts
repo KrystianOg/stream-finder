@@ -65,7 +65,7 @@ export default defineNuxtConfig({
         cloudflare: {
             wrangler: {
                 name: 'streaming-availability-proxy',
-                compatibility_date: '2025-02-04',
+                compatibility_date: '2025-07-15',
                 main: './server/kv.ts',
                 observability: {
                     enabled: true,
