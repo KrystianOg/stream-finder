@@ -9,7 +9,28 @@ const streamingOptions = computed(() => {
 
     if (!streamingOptions) return
 
-    return uniqBy(streamingOptions, (item) => item.service.id)
+    const uniqueStreamingOptions = uniqBy(
+        streamingOptions,
+        (item) => item.service.id
+    )
+
+    uniqueStreamingOptions.sort((a, b) =>
+        a.service.name.localeCompare(b.service.name)
+    )
+
+    const overrideColors: Record<string, string> = {
+        '#00A8E1': '#0074A0',
+    }
+
+    uniqueStreamingOptions.forEach((option) => {
+        console.info(option.service.themeColorCode)
+        if (Object.hasOwn(overrideColors, option.service.themeColorCode)) {
+            option.service.themeColorCode =
+                overrideColors[option.service.themeColorCode]!
+        }
+    })
+
+    return uniqueStreamingOptions
 })
 
 const overview = computed<string>(
