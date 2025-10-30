@@ -43,19 +43,45 @@ export default defineNuxtConfig({
         },
     },
     routeRules: {
-        '/api/streaming-api': {
-            headers: {
-                'Cache-Control': 'max-age=36000 Public',
-            },
-        },
         '/': {
             redirect: '/movies',
         },
-        // generated on demand, revalidates in background, cached on CDN
-        '/movies': { isr: 3600 },
-        '/movies/**': { isr: 86400 },
-        '/series': { isr: 3600 },
-        '/series/**': { isr: 86400 },
+        '/api/streaming-api/**': {
+            headers: {
+                'Cache-Control': 'max-age=36000 Public',
+            },
+            cache: { maxAge: 36000 },
+        },
+        '/movies': {
+            cache: { maxAge: 3600 },
+        },
+        '/movies/**': { cache: { maxAge: 86400 } },
+        '/series': { cache: { maxAge: 3600 } },
+        '/series/**': { cache: { maxAge: 86400 } },
+        '/**': {
+            headers: {
+                'Content-Security-Policy': [
+                    "default-src 'self'",
+                    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+                    "style-src 'self' 'unsafe-inline'",
+                    "img-src 'self' data: blob: https:",
+                    "font-src 'self' data:",
+                    "connect-src 'self' https://streaming-availability.p.rapidapi.com",
+                    "frame-ancestors 'none'",
+                    "base-uri 'self'",
+                    "form-action 'self'",
+                    "require-trusted-types-for 'script'",
+                ].join('; '),
+                'Strict-Transport-Security':
+                    'max-age=63072000; includeSubDomains; preload',
+                'Cross-Origin-Opener-Policy': 'same-origin',
+                'X-Frame-Options': 'DENY',
+                'X-Content-Type-Options': 'nosniff',
+                'Referrer-Policy': 'strict-origin-when-cross-origin',
+                'Permissions-Policy':
+                    'camera=(), microphone=(), geolocation=()',
+            },
+        },
     },
     nitro: {
         preset: 'cloudflare-pages',
@@ -76,32 +102,6 @@ export default defineNuxtConfig({
                         preview_id: process.env.CLOUDFLARE_KV_PREVIEW_ID,
                     },
                 ],
-            },
-        },
-        routeRules: {
-            '/**': {
-                headers: {
-                    'Content-Security-Policy': [
-                        "default-src 'self'",
-                        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
-                        "style-src 'self' 'unsafe-inline'",
-                        "img-src 'self' data: blob: https:",
-                        "font-src 'self' data:",
-                        "connect-src 'self' https://streaming-availability.p.rapidapi.com",
-                        "frame-ancestors 'none'",
-                        "base-uri 'self'",
-                        "form-action 'self'",
-                        "require-trusted-types-for 'script'",
-                    ].join('; '),
-                    'Strict-Transport-Security':
-                        'max-age=63072000; includeSubDomains; preload',
-                    'Cross-Origin-Opener-Policy': 'same-origin',
-                    'X-Frame-Options': 'DENY',
-                    'X-Content-Type-Options': 'nosniff',
-                    'Referrer-Policy': 'strict-origin-when-cross-origin',
-                    'Permissions-Policy':
-                        'camera=(), microphone=(), geolocation=()',
-                },
             },
         },
     },
