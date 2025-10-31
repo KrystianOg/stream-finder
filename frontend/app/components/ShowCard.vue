@@ -2,7 +2,7 @@
 import { contrastingColor } from '#imports'
 import type { Show } from 'streaming-availability'
 
-const props = defineProps<Show>()
+const props = defineProps<Show & { index: number }>()
 
 const streamingOptions = computed(() => {
     const streamingOptions = props.streamingOptions[DEFAULT_COUNTRY_CODE]
@@ -41,6 +41,9 @@ const firstAirYear = computed<string | undefined>(() =>
 )
 
 const imageLoaded = ref(false)
+const isAboveFold = computed<boolean>(
+    () => props.index !== undefined && props.index < 6
+)
 
 const imdbId = computed(() => IMDB_TITLE_URL + props.imdbId)
 const rating = computed(() => (props.rating / 10).toFixed(1))
@@ -64,7 +67,8 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
                     class="w-full h-full object-cover"
                     densities="x1 x2"
                     format="webp"
-                    :preload="false"
+                    :preload="isAboveFold"
+                    loading="lazy"
                     @load="imageLoaded = true"
                 />
             </div>
