@@ -11,7 +11,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "lighthouse": "lhci autorun",
-        "wrangler:dev": "wrangler pages dev dist --live-reload --local --kv KV"
+        "wrangler:dev": "wrangler pages dev dist --live-reload --local --kv KV",
+        "wrangler:deploy": "wrangler pages deploy dist --branch=main"
     },
     "dependencies": {
         "@nuxt/icon": "^2.0.0",
