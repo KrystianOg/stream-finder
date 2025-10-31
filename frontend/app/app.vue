@@ -38,12 +38,8 @@ useSeoMeta({
 </script>
 <template>
     <UApp>
-        <Header />
-        <UMain>
-            <NuxtLayout>
-                <NuxtPage />
-            </NuxtLayout>
-        </UMain>
-        <UFooter />
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
     </UApp>
 </template>
