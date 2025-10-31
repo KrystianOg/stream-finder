@@ -44,12 +44,10 @@ const episodeInfo = computed(() => {
                 class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-end pb-12"
             >
                 <div class="flex flex-col md:flex-row gap-6 items-end">
-                    <!-- Poster -->
-                    <SAImage
-                        :image-set="show.imageSet"
+                    <NuxtImg
+                        :src="show.imageSet.verticalPoster.w600"
                         :alt="show.title"
-                        image-type="verticalPoster"
-                        class="w-48 h-72 object-cover rounded-lg shadow-2xl hidden md:block"
+                        class="w-32 h-48 object-cover rounded-lg shadow-2xl md:hidden"
                     />
 
                     <!-- Title and Meta -->

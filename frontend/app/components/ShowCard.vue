@@ -40,6 +40,8 @@ const firstAirYear = computed<string | undefined>(() =>
     props.firstAirYear?.toString()
 )
 
+const imageLoaded = ref(false)
+
 const imdbId = computed(() => IMDB_TITLE_URL + props.imdbId)
 const rating = computed(() => (props.rating / 10).toFixed(1))
 </script>
@@ -49,10 +51,23 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
         class="flex flex-col"
     >
         <template #header>
-            <SAImage
-                :image-set="props.imageSet"
-                :alt="`${props.title} poster`"
-            />
+            <div class="w-full aspect-video">
+                <div
+                    v-if="!imageLoaded"
+                    class="absolute inset-0 bg-linear-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 animate-shimmer"
+                />
+
+                <LazyNuxtImg
+                    v-if="props.imageSet.horizontalBackdrop?.w480"
+                    :src="props.imageSet.horizontalBackdrop.w480"
+                    alt=""
+                    class="w-full h-full object-cover"
+                    densities="x1 x2"
+                    format="webp"
+                    :preload="false"
+                    @load="imageLoaded = true"
+                />
+            </div>
             <ULink
                 external
                 target="_blank"
@@ -62,7 +77,6 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
                 <UIcon name="i-lucide-star" />
                 {{ rating }}
             </ULink>
-            <div></div>
         </template>
 
         <h2 class="text-lg font-semibold">{{ props.title }}</h2>
