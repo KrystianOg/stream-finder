@@ -60,7 +60,7 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
                     class="absolute inset-0 bg-linear-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 animate-shimmer"
                 />
 
-                <LazyNuxtImg
+                <NuxtImg
                     v-if="props.imageSet.horizontalBackdrop?.w480"
                     :src="props.imageSet.horizontalBackdrop.w480"
                     alt=""
@@ -68,7 +68,7 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
                     densities="x1 x2"
                     format="webp"
                     :preload="isAboveFold"
-                    loading="lazy"
+                    :loading="isAboveFold ? 'eager' : 'lazy'"
                     @load="imageLoaded = true"
                 />
             </div>
