@@ -9,13 +9,16 @@ useHead({
     bodyAttrs: {
         class: 'antialiased',
     },
-    script: [
-        {
-            src: 'https://static.cloudflareinsights.com/beacon.min.js',
-            'data-cf-beacon': '{"token": "bc00d4fde6fa404688e917b8ab6f6c3b"}',
-            defer: true,
-        },
-    ],
+    script: !import.meta.dev
+        ? [
+              {
+                  src: 'https://static.cloudflareinsights.com/beacon.min.js',
+                  'data-cf-beacon':
+                      '{"token": "bc00d4fde6fa404688e917b8ab6f6c3b"}',
+                  defer: true,
+              },
+          ]
+        : [],
 })
 useSeoMeta({
     title: 'Stream Finder - Discover Your Favorite Streams',

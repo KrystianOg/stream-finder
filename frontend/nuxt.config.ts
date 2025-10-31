@@ -68,7 +68,7 @@ export default defineNuxtConfig({
             headers: {
                 'Content-Security-Policy': [
                     "default-src 'self'",
-                    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+                    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com",
                     "style-src 'self' 'unsafe-inline'",
                     "img-src 'self' data: blob: https:",
                     "font-src 'self' data:",
