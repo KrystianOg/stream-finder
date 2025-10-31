@@ -72,7 +72,7 @@ export default defineNuxtConfig({
                     "style-src 'self' 'unsafe-inline'",
                     "img-src 'self' data: blob: https:",
                     "font-src 'self' data:",
-                    "connect-src 'self' https://streaming-availability.p.rapidapi.com",
+                    "connect-src 'self' https://streaming-availability.p.rapidapi.com https://cloudflareinsights.com",
                     "manifest-src 'self'",
                     "frame-ancestors 'none'",
                     "base-uri 'self'",
