@@ -11,7 +11,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "lighthouse": "lhci autorun",
-        "wrangler:dev": "wrangler pages dev dist --live-reload --local --kv KV"
+        "wrangler:dev": "wrangler pages dev dist --live-reload --local --kv KV",
+        "wrangler:deploy": "wrangler pages deploy dist --branch=main"
     },
     "dependencies": {
         "@nuxt/icon": "^2.0.0",
@@ -29,6 +30,7 @@
         "@iconify-json/simple-icons": "^1.2.56",
         "@nuxt/eslint": "^1.9.0",
         "@types/node": "^24.9.2",
+        "@vite-pwa/nuxt": "^1.0.7",
         "eslint": "^9.37.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",

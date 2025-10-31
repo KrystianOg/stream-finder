@@ -1,5 +1,9 @@
 <template>
-    <UContainer>
-        <slot />
-    </UContainer>
+    <Header />
+    <UMain>
+        <UContainer>
+            <slot />
+        </UContainer>
+    </UMain>
+    <UFooter />
 </template>
