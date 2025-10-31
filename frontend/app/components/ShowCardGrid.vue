@@ -35,7 +35,12 @@ watch(
         class="my-4 w-full md:w-1/2"
     />
     <UPageGrid>
-        <ShowCard v-for="show in shows" :key="show.id" v-bind="show" />
+        <ShowCard
+            v-for="(show, index) in shows"
+            :key="show.id"
+            v-bind="show"
+            :index
+        />
     </UPageGrid>
     <UButton
         v-if="data?.nextCursor"

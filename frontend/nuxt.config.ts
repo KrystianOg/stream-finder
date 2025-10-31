@@ -106,6 +106,7 @@ export default defineNuxtConfig({
         },
     },
     image: {
+        domains: ['www.movieofthenight.com', 'cdn.movieofthenight.com'],
         cloudflare: {
             baseUrl: process.env.CLOUDFLARE_IMAGE_BASE_URL,
         },
