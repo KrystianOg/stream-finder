@@ -25,10 +25,11 @@ const episodeInfo = computed(() => {
         <div class="relative h-[60vh] min-h-[400px] overflow-hidden">
             <!-- Background Image -->
             <div class="absolute inset-0">
-                <SAImage
-                    :image-set="show.imageSet"
+                <NuxtImg
+                    :src="show.imageSet.horizontalBackdrop?.w1080"
                     :alt="show.title"
                     class="w-full h-full object-cover"
+                    priority
                 />
                 <!-- Gradient Overlay -->
                 <div
