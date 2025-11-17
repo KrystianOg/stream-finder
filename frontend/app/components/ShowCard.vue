@@ -9,7 +9,27 @@ const streamingOptions = computed(() => {
 
     if (!streamingOptions) return
 
-    return uniqBy(streamingOptions, (item) => item.service.id)
+    const uniqueStreamingOptions = uniqBy(
+        streamingOptions,
+        (item) => item.service.id
+    )
+
+    uniqueStreamingOptions.sort((a, b) =>
+        a.service.name.localeCompare(b.service.name)
+    )
+
+    const overrideColors: Record<string, string> = {
+        '#00A8E1': '#0074A0',
+    }
+
+    uniqueStreamingOptions.forEach((option) => {
+        if (Object.hasOwn(overrideColors, option.service.themeColorCode)) {
+            option.service.themeColorCode =
+                overrideColors[option.service.themeColorCode]!
+        }
+    })
+
+    return uniqueStreamingOptions
 })
 
 const overview = computed<string>(
@@ -29,10 +49,9 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
         class="flex flex-col"
     >
         <template #header>
-            <!-- TODO: there's potential optimization for lower resolutions -->
-            <img
-                :src="props.imageSet.horizontalPoster.w1440"
-                :alt="`${$props.title} poster`"
+            <SAImage
+                :image-set="props.imageSet"
+                :alt="`${props.title} poster`"
             />
             <ULink
                 external

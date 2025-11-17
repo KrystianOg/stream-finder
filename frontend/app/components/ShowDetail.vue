@@ -1,29 +1,22 @@
 <script setup lang="ts">
-import { useStreamingSDK } from '~/composables/streaming-api'
+import type { Show } from 'streaming-availability'
 
-const { id } = defineProps<{ id: string }>()
-
-const sdk = useStreamingSDK()
-const { data: show } = await useAsyncData(() =>
-    sdk.showsApi.getShow({
-        id,
-    })
-)
+const { show } = defineProps<{ show: Show }>()
 
 const yearRange = computed(() => {
-    if (!show.value) return ''
-    if (show.value.showType === 'movie') {
-        return show.value.firstAirYear
+    if (!show) return ''
+    if (show.showType === 'movie') {
+        return show.firstAirYear
     }
-    if (show.value.firstAirYear === show.value.lastAirYear) {
-        return show.value.firstAirYear
+    if (show.firstAirYear === show.lastAirYear) {
+        return show.firstAirYear
     }
-    return `${show.value.firstAirYear} - ${show.value.lastAirYear}`
+    return `${show.firstAirYear} - ${show.lastAirYear}`
 })
 
 const episodeInfo = computed(() => {
-    if (!show.value || show.value.showType === 'movie') return ''
-    return `${show.value.seasonCount} ${show.value.seasonCount === 1 ? 'Season' : 'Seasons'} - ${show.value.episodeCount} Episodes`
+    if (!show || show.showType === 'movie') return ''
+    return `${show.seasonCount} ${show.seasonCount === 1 ? 'Season' : 'Seasons'} - ${show.episodeCount} Episodes`
 })
 </script>
 <template>
@@ -32,11 +25,8 @@ const episodeInfo = computed(() => {
         <div class="relative h-[60vh] min-h-[400px] overflow-hidden">
             <!-- Background Image -->
             <div class="absolute inset-0">
-                <img
-                    :src="
-                        show.imageSet.horizontalPoster?.w1440 ||
-                        show.imageSet.verticalPoster?.w480
-                    "
+                <SAImage
+                    :image-set="show.imageSet"
                     :alt="show.title"
                     class="w-full h-full object-cover"
                 />
@@ -55,9 +45,10 @@ const episodeInfo = computed(() => {
             >
                 <div class="flex flex-col md:flex-row gap-6 items-end">
                     <!-- Poster -->
-                    <img
-                        :src="show.imageSet.verticalPoster?.w360"
+                    <SAImage
+                        :image-set="show.imageSet"
                         :alt="show.title"
+                        image-type="verticalPoster"
                         class="w-48 h-72 object-cover rounded-lg shadow-2xl hidden md:block"
                     />
 
