@@ -66,9 +66,9 @@ const rating = computed(() => (props.rating / 10).toFixed(1))
                     alt=""
                     class="w-full h-full object-cover"
                     densities="x1 x2"
-                    format="webp"
                     :preload="isAboveFold"
                     :loading="isAboveFold ? 'eager' : 'lazy'"
+                    :fetchpriority="isAboveFold ? 'high' : 'low'"
                     @load="imageLoaded = true"
                 />
             </div>

@@ -125,6 +125,7 @@ export default defineNuxtConfig({
                 ],
             },
         },
+        compressPublicAssets: true,
     },
     image: {
         domains: ['www.movieofthenight.com', 'cdn.movieofthenight.com'],
@@ -190,5 +191,8 @@ export default defineNuxtConfig({
             enabled: true,
             type: 'module',
         },
+    },
+    features: {
+        inlineStyles: true,
     },
 })

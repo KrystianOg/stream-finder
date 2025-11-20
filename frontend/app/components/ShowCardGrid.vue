@@ -34,14 +34,16 @@ watch(
         placeholder="Search..."
         class="my-4 w-full md:w-1/2"
     />
-    <UPageGrid>
-        <ShowCard
-            v-for="(show, index) in shows"
-            :key="show.id"
-            v-bind="show"
-            :index
-        />
-    </UPageGrid>
+    <main>
+        <UPageGrid>
+            <ShowCard
+                v-for="(show, index) in shows"
+                :key="show.id"
+                v-bind="show"
+                :index
+            />
+        </UPageGrid>
+    </main>
     <UButton
         v-if="data?.nextCursor"
         class="mt-6 bg-transparent border border-primary text-white w-full md:w-1/2 inline-block"

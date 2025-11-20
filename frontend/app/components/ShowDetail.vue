@@ -76,7 +76,7 @@ const episodeInfo = computed(() => {
                                 class="flex items-center gap-1"
                             >
                                 <UIcon
-                                    name="i-heroicons-star-solid"
+                                    name="i-lucide-star"
                                     class="text-yellow-400"
                                 />
                                 <span class="font-semibold"
