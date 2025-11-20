@@ -15,6 +15,7 @@ export default defineNuxtConfig({
         '@vueuse/nuxt',
         '@nuxt/icon',
         '@nuxt/image',
+        '@vite-pwa/nuxt',
     ],
     css: ['~/assets/main.css'],
     devtools: { enabled: true },
@@ -33,7 +34,12 @@ export default defineNuxtConfig({
                     type: 'image/svg+xml',
                     href: '/favicon.svg',
                 },
+                {
+                    rel: 'manifest',
+                    href: '/manifest.webmanifest',
+                },
             ],
+            meta: [{ name: 'theme-color', content: '#8b5cf6' }],
         },
     },
     sourcemap: true,
@@ -62,15 +68,15 @@ export default defineNuxtConfig({
             headers: {
                 'Content-Security-Policy': [
                     "default-src 'self'",
-                    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+                    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com",
                     "style-src 'self' 'unsafe-inline'",
                     "img-src 'self' data: blob: https:",
                     "font-src 'self' data:",
-                    "connect-src 'self' https://streaming-availability.p.rapidapi.com",
+                    "connect-src 'self' https://streaming-availability.p.rapidapi.com https://cloudflareinsights.com",
+                    "manifest-src 'self'",
                     "frame-ancestors 'none'",
                     "base-uri 'self'",
                     "form-action 'self'",
-                    "require-trusted-types-for 'script'",
                 ].join('; '),
                 'Strict-Transport-Security':
                     'max-age=63072000; includeSubDomains; preload',
@@ -80,6 +86,21 @@ export default defineNuxtConfig({
                 'Referrer-Policy': 'strict-origin-when-cross-origin',
                 'Permissions-Policy':
                     'camera=(), microphone=(), geolocation=()',
+            },
+        },
+    },
+    vite: {
+        build: {
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'floating-ui': [
+                            '@floating-ui/core',
+                            '@floating-ui/dom',
+                        ],
+                        'vue-runtime': ['@vue/runtime-core'],
+                    },
+                },
             },
         },
     },
@@ -104,11 +125,74 @@ export default defineNuxtConfig({
                 ],
             },
         },
+        compressPublicAssets: true,
     },
     image: {
         domains: ['www.movieofthenight.com', 'cdn.movieofthenight.com'],
         cloudflare: {
             baseUrl: process.env.CLOUDFLARE_IMAGE_BASE_URL,
         },
+    },
+    pwa: {
+        registerType: 'autoUpdate',
+        manifest: {
+            name: 'Stream Finder',
+            short_name: 'StreamFinder',
+            description: 'Find where to stream your favorite movies and series',
+            theme_color: '#8b5cf6',
+            background_color: '#1e1e2f',
+            display: 'standalone',
+            lang: 'en',
+            start_url: '/',
+            icons: [
+                // Android/Chrome
+                {
+                    src: '/android/android-launchericon-192-192.png',
+                    sizes: '192x192',
+                    type: 'image/png',
+                },
+                {
+                    src: '/android/android-launchericon-512-512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                },
+                {
+                    src: '/android/android-launchericon-512-512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'maskable',
+                },
+                // iOS (Safari)
+                {
+                    src: '/ios/180.png',
+                    sizes: '180x180',
+                    type: 'image/png',
+                },
+            ],
+        },
+        workbox: {
+            navigateFallback: '/',
+            globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,svg,ico,gif,woff2}'],
+            runtimeCaching: [
+                {
+                    urlPattern: /^https:\/\/api\..*/i,
+                    handler: 'NetworkFirst',
+                    options: {
+                        cacheName: 'api-cache',
+                        expiration: {
+                            maxEntries: 50,
+                            maxAgeSeconds: 60 * 60 * 24,
+                        },
+                    },
+                },
+            ],
+        },
+        devOptions: {
+            enabled: true,
+            type: 'module',
+        },
+    },
+    features: {
+        inlineStyles: true,
     },
 })

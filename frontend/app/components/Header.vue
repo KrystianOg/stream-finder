@@ -24,7 +24,7 @@ const items = computed(() => [
             <UButton
                 color="neutral"
                 variant="ghost"
-                to="https://github.com/KrystianOg/movie-multiplexer"
+                to="https://github.com/KrystianOg/stream-finder"
                 target="_blank"
                 icon="i-simple-icons-github"
                 aria-label="Github"

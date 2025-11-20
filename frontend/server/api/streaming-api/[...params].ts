@@ -1,5 +1,7 @@
 import { hash } from 'ohash'
 
+const TWO_WEEKS_IN_SECONDS = 14 * 24 * 60 * 60
+
 export default defineEventHandler(async (event) => {
     const { rapidApiHost, rapidApiKey } = useRuntimeConfig()
 
@@ -33,7 +35,9 @@ export default defineEventHandler(async (event) => {
     })
 
     if (KV) {
-        await KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 86400 })
+        await KV.put(cacheKey, JSON.stringify(data), {
+            expirationTtl: TWO_WEEKS_IN_SECONDS,
+        })
     }
 
     return data
